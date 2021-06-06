@@ -3,14 +3,22 @@ const _pg = new PostgresService();
 
 
 const getUsuarios = async (req, res) => {
-    let sql = `select * from usuario`;
+    let sql = "select * from usuario";
     try {
-        let result = await _pg.executeSql(sql);
-        console.log(result.rows);
-        return res.send(result.rows);
+      let result = await _pg.executeSql(sql);
+      let rows = result.rows;
+  
+      return res.send({
+        ok: true,
+        message: "Usuarios consultados",
+        content: rows,
+      });
     } catch (error) {
-        console.log(error);
-        return res.send({ ok: false, message: "Error consultando los usuarios", content: error, });
+      return res.send({
+        ok: false,
+        message: "Ha ocurrido un error consultando los usuario",
+        content: error,
+      });
     }
 };
 
@@ -39,9 +47,9 @@ const getUsuario = async (req, res) => {
 const createUsuario = async (req, res) => {
     try {
         let usuario = req.body;
-        let sql = `insert into usuario (id_tipo_id,id_usuario, nombres, apellidos, correo,id_rol,celular) 
-        values('${usuario.tipo_id}','${usuario.id_usuario}', '${usuario.nombres}', 
-            '${usuario.apellidos}', '${usuario.correo}', ${usuario.id_rol},'${usuario.celular}')`;
+        let sql = `INSERT INTO public.usuario (id_tipo_id, id_usuario, nombres, apellidos, correo, id_rol, celular,
+             contrasenia) VALUES('${usuario.id_tipo_id}', '${usuario.id_usuario}', '${usuario.nombres}', 
+             '${usuario.apellidos}', '${usuario.correo}', '${usuario.id_rol}', '${usuario.celular}', '${usuario.contrasenia}');`;
         let result = await _pg.executeSql(sql);
         console.log(result.rows);
         return res.send({ ok: result.rowCount == 1, message: result.rowCount == 1 ? "El usuario fue creado" : "Usuario no fue creado", content: usuario, });
