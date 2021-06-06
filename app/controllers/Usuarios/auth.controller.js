@@ -11,7 +11,7 @@ const _pg = new PostgresService();
 const getUsuarioLogin = async (req, res) => {
   try {
     let usuario = req.body;
-    let sql = `select nombres, id_rol, id_usuario from usuario WHERE id='${usuario.id_usuario}' and contrasenia=md5('${usuario.contrasenia}') limit 1`;
+    let sql = `select nombres, id_rol, id_usuario from usuario WHERE id_usuario='${usuario.id_usuario}' and contrasenia='${usuario.contrasenia}' limit 1`;
     let result = await _pg.executeSql(sql);
     let usuario_logged = result.rows[0];
     console.log(usuario_logged);
@@ -21,7 +21,7 @@ const getUsuarioLogin = async (req, res) => {
       message: usuario_logged
         ? `Bienvenido ${usuario_logged.nombres}`
         : "Usuario no encontrado, verificar identificación y/o contraseña.",
-      content: { token, nombres: usuario_logged.nombres, id_rol: usuario_logged.id_rol },
+      content: token,
     });
   } catch (error) {
     console.log(error);
