@@ -21,7 +21,7 @@ const getUsuarioLogin = async (req, res) => {
       message: usuario_logged
         ? `Bienvenido ${usuario_logged.nombres}`
         : "Usuario no encontrado, verificar identificación y/o contraseña.",
-      content: token,
+      content: {token,rol:usuario_logged.id_rol,nombres:usuario_logged.nombres},
     });
   } catch (error) {
     console.log(error);
