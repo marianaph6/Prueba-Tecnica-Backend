@@ -1,0 +1,24 @@
+{
+  "name": "prueba-tecnica-api",
+  "version": "1.0.0",
+  "description": "Api para prueba técnica de creativos digitales",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/marianaph6/Prueba-Tecnica-Backend.git"
+  },
+  "author": "mariana-palacios-hinestroza",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/marianaph6/Prueba-Tecnica-Backend/issues"
+  },
+  "homepage": "https://github.com/marianaph6/Prueba-Tecnica-Backend#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "pg": "^8.6.0"
+  }
+}
