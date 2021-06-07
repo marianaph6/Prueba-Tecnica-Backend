@@ -7,7 +7,8 @@ const _rolController = require('../controllers/Roles/roles.controller')
 const _tipo_idController = require('../controllers/Tipos_id/tipos_id.controller')
 const _authController = require("../controllers/Usuarios/auth.controller");
 
-router.post("/login", _authController.getUsuarioLogin);
+router.post("/login", _authController.getUsuarioLogin)
+.post('/usuarios', _usuarioController.createUsuario);
 
 router.use([_authController.verifyTokenMiddleware]);
 
@@ -18,7 +19,6 @@ router
     //CRUD de usuarios
     .get('/usuarios', _usuarioController.getUsuarios)
     .get('/usuarios/:id', _usuarioController.getUsuario)
-    .post('/usuarios', _usuarioController.createUsuario)
     .put('/usuarios/:id', _usuarioController.updateUsuario)
     .delete('/usuarios/:id', _usuarioController.deleteUsuario)
 
