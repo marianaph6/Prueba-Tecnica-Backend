@@ -26,7 +26,7 @@ const getUsuarios = async (req, res) => {
 const getUsuario = async (req, res) => {
   try {
     let id = req.params.id;
-    let sql = `select  id_tipo_id, id_usuario, nombres, apellidos, correo, id_rol, celular, md5(contrasenia)
+    let sql = `select  id_tipo_id, id_usuario, nombres, apellidos, correo, id_rol, celular, contrasenia
     FROM public.usuario WHERE id_usuario='${id}'; `;
     
 
