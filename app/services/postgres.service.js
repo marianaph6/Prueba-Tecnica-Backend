@@ -3,7 +3,8 @@ const pg = require('pg');
 
 class PostgresService {
     constructor(){
-        this.connectionString="postgresql://postgres:postgres@localhost:5432/prueba-tecnica"
+        let uri= process.env.DATABASE_URL || "postgresql://postgres:postgres@localhost:5432/prueba-tecnica"
+        this.connectionString= uri
         this.pool=new pg.Pool(
             {connectionString:this.connectionString}
         );
