@@ -26,7 +26,10 @@ const getUsuarios = async (req, res) => {
 const getUsuario = async (req, res) => {
   try {
     let id = req.params.id;
-    let sql = "select * from usuario WHERE id_usuario='" + id + "'";
+    let sql = `select  id_tipo_id, id_usuario, nombres, apellidos, correo, id_rol, celular, md5(contrasenia)
+    FROM public.usuario WHERE id_usuario='${id}'; `;
+    
+
     let result = await _pg.executeSql(sql);
     let rows = result.rows;
     return res.send({
@@ -50,7 +53,7 @@ const createUsuario = async (req, res) => {
     let sql = `INSERT INTO public.usuario (id_tipo_id, id_usuario, nombres, apellidos, correo, id_rol, celular,
              contrasenia) VALUES('${usuario.id_tipo_id}', '${usuario.id_usuario}', '${usuario.nombres}', 
              '${usuario.apellidos}', '${usuario.correo}', '${usuario.id_rol}', '${usuario.celular}', 
-             '${usuario.contrasenia}');`;
+             md5('${usuario.contrasenia}'));`;
     let result = await _pg.executeSql(sql);
     console.log(result.rows);
     return res.send({ ok: result.rowCount == 1, message: result.rowCount == 1 ? "El usuario fue creado" : "Usuario no fue creado", content: usuario, });
@@ -65,7 +68,7 @@ const updateUsuario = async (req, res) => {
 
     let sql = `UPDATE public.usuario SET id_tipo_id='${usuario.id_tipo_id}', 
       nombres='${usuario.nombres}', apellidos='${usuario.apellidos}', correo='${usuario.correo}', 
-      id_rol='${usuario.id_rol}', celular='${usuario.celular}', contrasenia= md5('${usuario.contrasenia})'
+      id_rol='${usuario.id_rol}', celular='${usuario.celular}', contrasenia= md5('${usuario.contrasenia}')
        WHERE id_usuario='${id}';`;
 
     let result = await _pg.executeSql(sql);

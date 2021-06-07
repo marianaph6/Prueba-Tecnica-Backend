@@ -11,7 +11,7 @@ const _pg = new PostgresService();
 const getUsuarioLogin = async (req, res) => {
   try {
     let usuario = req.body;
-    let sql = `select nombres, id_rol, id_usuario from usuario WHERE id_usuario='${usuario.id_usuario}' and contrasenia='${usuario.contrasenia}' limit 1`;
+    let sql = `select nombres, id_rol, id_usuario from usuario WHERE id_usuario='${usuario.id_usuario}' and contrasenia=md5('${usuario.contrasenia}') limit 1`;
     let result = await _pg.executeSql(sql);
     let usuario_logged = result.rows[0];
     console.log(usuario_logged);
